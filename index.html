@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Para Isabelle 💜</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top, #172554 0%, #071426 45%, #030712 100%);
+    color: white;
+    font-family: Georgia, serif;
+    overflow-x: hidden;
+}
+
+/* ============================= */
+/* ESTRELAS */
+/* ============================= */
+
+#estrelas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.estrela {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: piscar 2s infinite alternate;
+}
+
+@keyframes piscar {
+    from {
+        opacity: .25;
+        transform: scale(.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+/* ============================= */
+/* CORAÇÕES */
+/* ============================= */
+
+#coracoes {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.coracao-caindo {
+    position: absolute;
+    top: -60px;
+    animation: cair linear infinite;
+    opacity: .75;
+}
+
+@keyframes cair {
+    from {
+        transform: translateY(-10vh) rotate(0deg);
+    }
+
+    to {
+        transform: translateY(120vh) rotate(360deg);
+    }
+}
+
+/* ============================= */
+/* TELAS */
+/* ============================= */
+
+.tela {
+    display: none;
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    width: 100%;
+    padding: 35px 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.tela.ativa {
+    display: flex;
+}
+
+.caixa {
+    width: min(92vw, 720px);
+    text-align: center;
+    padding: 28px 20px;
+}
+
+h1 {
+    color: #d8b4fe;
+    font-size: clamp(28px, 8vw, 46px);
+    margin: 10px 0;
+}
+
+h2 {
+    color: #f0abfc;
+    font-size: clamp(23px, 6vw, 34px);
+}
+
+p {
+    font-size: clamp(16px, 4.3vw, 20px);
+    line-height: 1.7;
+}
+
+.roxo {
+    color: #c084fc;
+}
+
+.rosa {
+    color: #f0abfc;
+}
+
+.animais {
+    font-size: clamp(30px, 10vw, 52px);
+    margin: 25px 0;
+}
+
+/* ============================= */
+/* CONTADOR */
+/* ============================= */
+
+#contador {
+    margin: 35px 0 15px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.tempo {
+    background: rgba(126, 34, 206, .15);
+    border: 1px solid rgba(216, 180, 254, .25);
+    border-radius: 15px;
+    padding: 15px 4px;
+    backdrop-filter: blur(6px);
+}
+
+.numero {
+    display: block;
+    color: #f0abfc;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: clamp(25px, 8vw, 44px);
+}
+
+.rotulo {
+    display: block;
+    color: #ddd6fe;
+    margin-top: 7px;
+    font-family: Arial, sans-serif;
+    font-size: clamp(9px, 2.7vw, 12px);
+}
+
+.coracao-grande {
+    font-size: 60px;
+    color: #c084fc;
+    animation: pulsar .9s infinite alternate;
+    margin: 25px;
+}
+
+@keyframes pulsar {
+    from {
+        transform: scale(.85);
+    }
+
+    to {
+        transform: scale(1.2);
+    }
+}
+
+/* ============================= */
+/* BOTÕES */
+/* ============================= */
+
+button {
+    border: none;
+    border-radius: 999px;
+    padding: 15px 24px;
+    margin: 12px 5px;
+    background: linear-gradient(135deg, #7e22ce, #a855f7);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(126, 34, 206, .35);
+}
+
+button:active {
+    transform: scale(.96);
+}
+
+/* ============================= */
+/* POESIA */
+/* ============================= */
+
+.poesia {
+    font-style: italic;
+    line-height: 1.85;
+    font-size: clamp(15px, 4vw, 19px);
+}
+
+/* ============================= */
+/* CERTIDÃO */
+/* ============================= */
+
+.certidao {
+    border: 2px solid #c084fc;
+    border-radius: 22px;
+    padding: 25px 18px;
+    background: rgba(10, 15, 35, .75);
+    box-shadow:
+        0 0 30px rgba(192, 132, 252, .2),
+        inset 0 0 30px rgba(192, 132, 252, .05);
+}
+
+/* ============================= */
+/* CHUVA FINAL */
+/* ============================= */
+
+.coracao-final {
+    position: fixed;
+    top: -50px;
+    z-index: 10;
+    pointer-events: none;
+    animation: chuvaFinal linear forwards;
+}
+
+@keyframes chuvaFinal {
+    to {
+        transform:
+            translateY(120vh)
+            rotate(500deg);
+    }
+}
+
+@media (max-width: 430px) {
+    .tela {
+        padding: 25px 12px;
+    }
+
+    .caixa {
+        padding: 20px 8px;
+    }
+
+    #contador {
+        gap: 5px;
+    }
+
+    .tempo {
+        padding: 12px 2px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="estrelas"></div>
+<div id="coracoes"></div>
+
+
+<!-- ===================================================== -->
+<!-- CONTAGEM -->
+<!-- ===================================================== -->
+
+<section id="telaContagem" class="tela ativa">
+
+<div class="caixa">
+
+    <h1>SAVIA ♡ ISABELLE</h1>
+
+    <p class="roxo">
+        09 de outubro de 2026 • 08:00
+    </p>
+
+    <div class="animais">
+        🦈 ♡ 🐉
+    </div>
+
+    <div id="contador">
+
+        <div class="tempo">
+            <span id="dias" class="numero">00</span>
+            <span class="rotulo">DIAS</span>
+        </div>
+
+        <div class="tempo">
+            <span id="horas" class="numero">00</span>
+            <span class="rotulo">HORAS</span>
+        </div>
+
+        <div class="tempo">
+            <span id="minutos" class="numero">00</span>
+            <span class="rotulo">MIN</span>
+        </div>
+
+        <div class="tempo">
+            <span id="segundos" class="numero">00</span>
+            <span class="rotulo">SEG</span>
+        </div>
+
+    </div>
+
+    <p>
+        Cada segundo que passa é um segundo a menos...
+        <br>
+        mas você ainda não sabe o que te espera. ♡
+    </p>
+
+    <div class="coracao-grande">
+        ♥
+    </div>
+
+    <p class="roxo">
+        Algumas coisas valem a espera.
+    </p>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- DESCULPAS -->
+<!-- ===================================================== -->
+
+<section id="telaDesculpas" class="tela">
+
+<div class="caixa">
+
+<h1>Para você, Isabelle 💜</h1>
+
+<p>
+Antes de qualquer coisa...
+</p>
+
+<p class="rosa">
+me desculpa por ter te enganado sobre o dia.
+</p>
+
+<p>
+Eu sei que fiz você acreditar em outra coisa,
+mas tinha um motivo.
+</p>
+
+<p>
+Eu queria guardar esse momento como
+uma surpresa para você.
+</p>
+
+<p>
+Queria que você chegasse até aqui
+sem saber exatamente o que estava te esperando.
+</p>
+
+<p>
+Então sim...
+<br><br>
+eu te enganei um pouquinho.
+</p>
+
+<p>
+Mas foi porque eu queria preparar algo especial,
+pensar em cada detalhe
+e fazer você descobrir tudo assim. ♡
+</p>
+
+<p>
+Agora que você chegou até aqui...
+<br><br>
+tem uma coisa que eu quero que você leia.
+</p>
+
+<button onclick="mostrarTela('telaPoesia')">
+    Abrir minha surpresa ♡
+</button>
+
+<div class="animais">
+    🦈 ♡ 🐉
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- POESIA -->
+<!-- ===================================================== -->
+
+<section id="telaPoesia" class="tela">
+
+<div class="caixa">
+
+<h1>Para você, Isabelle ♡</h1>
+
+<div class="poesia">
+
+<p>
+Os olhos dela me sugam intensos,
+profundos como os de Édra sugavam os de Íris.
+</p>
+
+<p>
+E talvez… talvez ela seja a minha Édra,
+e eu, a sua Íris.
+</p>
+
+<p>
+Dois mundos se encarando em silêncio,
+como quem se reconhece antes mesmo de se conhecer.
+</p>
+
+<p>
+Há algo entre nós que escapa às palavras,
+um laço antigo,
+como se já tivéssemos sido amor em outras vidas.
+</p>
+
+<p>
+Quando ela me olha,
+não é só com os olhos —
+é com a alma.
+</p>
+
+<p>
+E eu, sem perceber,
+me desfaço inteira,
+como se cada parte de mim já soubesse
+que pertence a ela.
+</p>
+
+<p>
+Talvez o destino seja mesmo feito
+de encontros assim:
+raros, profundos, inevitáveis.
+</p>
+
+<p>
+E, se for verdade,
+então que ela seja o meu abismo
+e eu, o dela.
+</p>
+
+<p class="rosa">
+Porque, se for pra me perder,
+que seja nos olhos dela.
+</p>
+
+</div>
+
+<button onclick="mostrarTela('telaPedido')">
+    Ainda não acabou... ♡
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- PEDIDO -->
+<!-- ===================================================== -->
+
+<section id="telaPedido" class="tela">
+
+<div class="caixa">
+
+<h1>SAVIA ♡ ISABELLE</h1>
+
+<div class="animais">
+    🦈 ♡ 🐉
+</div>
+
+<p>
+Isabelle,
+</p>
+
+<p>
+talvez agora você entenda
+por que eu fiz tanto mistério com essa data.
+</p>
+
+<p>
+Eu sei que a nossa história não começa hoje.
+</p>
+
+<p>
+Ela já tem uma data:
+</p>
+
+<h2>15 • 09 • 2026 💜</h2>
+
+<p>
+O dia em que "eu e você"
+começou a virar "nós".
+</p>
+
+<p>
+Mas eu queria fazer uma coisa
+que talvez eu devesse ter feito
+de um jeito muito mais especial.
+</p>
+
+<p>
+Queria preparar cada detalhe,
+escolher as palavras,
+contar os segundos...
+</p>
+
+<p>
+e ter a oportunidade de olhar
+para a pessoa que eu escolhi
+e fazer essa pergunta outra vez.
+</p>
+
+<p>
+Se Édra encontrou sua Íris,
+<br>
+e se o tubarão encontrou seu dragão...
+</p>
+
+<h2>eu encontrei você.</h2>
+
+<br>
+
+<h2>
+Isabelle, você aceita namorar comigo...
+de novo? 💜
+</h2>
+
+<button onclick="elaAceitou()">
+    SIM 💜
+</button>
+
+<button onclick="elaAceitou()">
+    CLARO QUE SIM ♡
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- ELA DISSE SIM -->
+<!-- ===================================================== -->
+
+<section id="telaSim" class="tela">
+
+<div class="caixa">
+
+<h1>ELA DISSE SIM... DE NOVO! 💜</h1>
+
+<h2>SAVIA ♡ ISABELLE</h2>
+
+<div class="animais">
+    🦈 💜 🐉
+</div>
+
+<p class="poesia">
+Eu não precisava de uma nova resposta.
+<br><br>
+Só queria ter a chance de escolher você outra vez. ♡
+</p>
+
+<p>
+NOSSA HISTÓRIA COMEÇOU EM
+</p>
+
+<h1>15 • 09 • 2026</h1>
+
+<p class="rosa">
+E eu escolheria você outra vez.
+<br>
+E outra.
+<br>
+E outra. ♡
+</p>
+
+<button onclick="mostrarTela('telaCertidao')">
+    Você ainda tem mais uma coisinha... ♡
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- CERTIDÃO -->
+<!-- ===================================================== -->
+
+<section id="telaCertidao" class="tela">
+
+<div class="caixa certidao">
+
+<h1>♡ CERTIDÃO OFICIAL DO NOSSO AMOR ♡</h1>
+
+<h2>SAVIA ♡ ISABELLE</h2>
+
+<p>
+Namoro oficialmente iniciado em:
+</p>
+
+<h2>15 • 09 • 2026</h2>
+
+<p>
+Pedido feito novamente com todo o amor em:
+</p>
+
+<h2>09 • 10 • 2026</h2>
+
+<hr style="
+border:none;
+border-top:1px solid #7e22ce;
+margin:30px;
+">
+
+<p>PARTES ENVOLVIDAS:</p>
+
+<h2>
+Savia 🐉 + Isabelle 🦈
+</h2>
+
+<p>STATUS:</p>
+
+<h2>Apaixonadas ♡</h2>
+
+<p>PRAZO DE VALIDADE:</p>
+
+<h2>Indeterminado.</h2>
+
+<p class="poesia">
+Mesmo já tendo você,
+<br>
+eu ainda escolheria você
+<br>
+todas as vezes.
+</p>
+
+<div class="animais">
+    🦈 ♡ 🐉
+</div>
+
+</div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   DATA DA SURPRESA
+   ========================================================= */
+
+const dataSurpresa =
+    new Date(2026, 9, 9, 8, 0, 0);
+
+
+/* =========================================================
+   TROCAR TELAS
+   ========================================================= */
+
+function mostrarTela(id) {
+
+    document
+        .querySelectorAll(".tela")
+        .forEach(tela => {
+            tela.classList.remove("ativa");
+        });
+
+    document
+        .getElementById(id)
+        .classList.add("ativa");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =========================================================
+   CONTAGEM REGRESSIVA
+   ========================================================= */
+
+function atualizarContador() {
+
+    const agora = new Date();
+
+    const diferenca =
+        dataSurpresa.getTime() - agora.getTime();
+
+    if (diferenca <= 0) {
+
+        mostrarTela("telaDesculpas");
+
+        return;
+    }
+
+    const dias =
+        Math.floor(
+            diferenca / 1000 / 60 / 60 / 24
+        );
+
+    const horas =
+        Math.floor(
+            diferenca / 1000 / 60 / 60
+        ) % 24;
+
+    const minutos =
+        Math.floor(
+            diferenca / 1000 / 60
+        ) % 60;
+
+    const segundos =
+        Math.floor(
+            diferenca / 1000
+        ) % 60;
+
+
+    document.getElementById("dias")
+        .textContent =
+        String(dias).padStart(2, "0");
+
+    document.getElementById("horas")
+        .textContent =
+        String(horas).padStart(2, "0");
+
+    document.getElementById("minutos")
+        .textContent =
+        String(minutos).padStart(2, "0");
+
+    document.getElementById("segundos")
+        .textContent =
+        String(segundos).padStart(2, "0");
+}
+
+
+setInterval(
+    atualizarContador,
+    1000
+);
+
+atualizarContador();
+
+
+/* =========================================================
+   ESTRELAS
+   ========================================================= */
+
+const areaEstrelas =
+    document.getElementById("estrelas");
+
+for (let i = 0; i < 100; i++) {
+
+    const estrela =
+        document.createElement("div");
+
+    estrela.className = "estrela";
+
+    const tamanho =
+        Math.random() * 2.5 + 1;
+
+    estrela.style.width =
+        tamanho + "px";
+
+    estrela.style.height =
+        tamanho + "px";
+
+    estrela.style.left =
+        Math.random() * 100 + "%";
+
+    estrela.style.top =
+        Math.random() * 100 + "%";
+
+    estrela.style.animationDelay =
+        Math.random() * 3 + "s";
+
+    areaEstrelas.appendChild(
+        estrela
+    );
+}
+
+
+/* =========================================================
+   CORAÇÕES DO FUNDO
+   ========================================================= */
+
+const areaCoracoes =
+    document.getElementById("coracoes");
+
+for (let i = 0; i < 18; i++) {
+
+    const coracao =
+        document.createElement("div");
+
+    coracao.className =
+        "coracao-caindo";
+
+    coracao.textContent =
+        Math.random() > .5 ? "♡" : "♥";
+
+    coracao.style.left =
+        Math.random() * 100 + "%";
+
+    coracao.style.fontSize =
+        (Math.random() * 16 + 12) + "px";
+
+    coracao.style.color =
+        Math.random() > .5
+        ? "#c084fc"
+        : "#f0abfc";
+
+    coracao.style.animationDuration =
+        (Math.random() * 8 + 8) + "s";
+
+    coracao.style.animationDelay =
+        -(Math.random() * 15) + "s";
+
+    areaCoracoes.appendChild(
+        coracao
+    );
+}
+
+
+/* =========================================================
+   ELA ACEITOU
+   ========================================================= */
+
+function elaAceitou() {
+
+    mostrarTela("telaSim");
+
+    chuvaDeCoracoes();
+}
+
+
+/* =========================================================
+   CHUVA DE CORAÇÕES
+   ========================================================= */
+
+function chuvaDeCoracoes() {
+
+    for (let i = 0; i < 70; i++) {
+
+        setTimeout(() => {
+
+            const coracao =
+                document.createElement("div");
+
+            coracao.className =
+                "coracao-final";
+
+            coracao.textContent =
+                Math.random() > .5
+                ? "♥"
+                : "♡";
+
+            coracao.style.left =
+                Math.random() * 100 + "vw";
+
+            coracao.style.fontSize =
+                (Math.random() * 25 + 15) + "px";
+
+            coracao.style.color =
+                [
+                    "#c084fc",
+                    "#f0abfc",
+                    "#e879f9",
+                    "#ddd6fe"
+                ][Math.floor(Math.random() * 4)];
+
+            coracao.style.animationDuration =
+                (Math.random() * 3 + 3) + "s";
+
+            document.body.appendChild(
+                coracao
+            );
+
+            setTimeout(() => {
+                coracao.remove();
+            }, 7000);
+
+        }, i * 70);
+    }
+}
+
+</script>
+
+</body>
+</html>
